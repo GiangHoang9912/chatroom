@@ -9,7 +9,7 @@
         })</script> -->
         <script src="https://chatroomoneturn.herokuapp.com/socket.io/socket.io.js"></script>
         <script>
-            let socket = io("https://chatroomoneturn.herokuapp.com/")
+            let socket = io("http://localhost:3000/")
 
             socket.on("Server-send-data", function(data){
                 $("#content").append(data + "<br>")
@@ -35,7 +35,7 @@
                 })
             })
         </script>
-        <style type="text/stylesheet" src="home.css"></style>
+        <style type="text/css" rel="stylesheet" href="home.css"></style>
     </head>
     <body>
         <div id="ds" style="position: absolute; border: 1px solid gray; text-align: center; width: 300px;">
