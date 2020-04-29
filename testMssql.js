@@ -1,27 +1,30 @@
 let express = require('express')
 
-let router = express.Router()
+let app = express()
 
-router.get('/', function(req , res,next){
-    getData(function(recordSet){
-        res.render("Server", {Account : recordSet})
-    })
-})
+app.use(express.static("public"))
 
-function getData(callBack){
-    let sql = require('mssql')
-    let config = {
-        user : "sa",
-        password : "sa",
-        database : "ProjectNews",
-        server : "localhost"
-    }
-    let connection = new sql.Connection(config, function(err){
-        let req = new sql.Request(connection)
-        req.query("select * from Account", function(err, recordSet){
-            callBack(recordSet);
-        })
-    })
+app.set("view engine", "ejs")
+
+app.set("views", "./views")
+
+app.listen(3000)
+
+let sql = require('mssql')
+let config = {
+    user : "sa",
+    password : "sa",
+    database : "ProjectNews",
+    server : "localhost",
+    port : 1433
 }
 
-module.exports = router
+
+app.get('/', function(req , res){
+    let connection = new sql.ConnectionPool(config);
+    connection.connect()
+    req = new sql.Request(connection)
+    req.query("select * from Account", function(err, recordSet){
+        res.render("Mssql", {Account : recordSet})
+    })
+})
