@@ -23,12 +23,16 @@
                 })
             })
 
+            let text = ""
+
             $(document).ready(function(){
                 $("#send").click(function(){
                     let message = $("#textMess").val()
                     socket.emit("Client-send-data", message)
+                    $("#textMess").val('');
                 })
             })
+
             $(document).ready(function(){
                 $("#setName").click(function(){
                     let fullName = $("#fullName").val()
@@ -59,12 +63,12 @@
             </div>
         <div style="border: 1px solid gray; width: 35%;height: auto;margin: auto;">
             <div id="Information" style="padding-top: 50px; padding-left: 20%;">
-                Name : <input id="fullName" type="text"/>
+                Name : <input id="fullName" type="text" placeholder="Name"/>
                 <button id="setName" onclick="enableSend()" type="submit">Send</button>
             </div>
 
             <div id="sendToServer" style="padding-top: 30px;padding-left: 20%;padding-bottom: 20px;">
-                Message : <input id="textMess" type="text"/>
+                Message : <input id="textMess" onkeypress="" type="text" placeholder="Message"/>
                 <button id="send" type="submit" disabled>Send</button>
             </div>
         </div>
