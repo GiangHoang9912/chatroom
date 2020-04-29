@@ -31,23 +31,14 @@ const poolPromise = new sql.ConnectionPool(config)
 app.get('/', async (req, res) => {
   try {
     const pool = await poolPromise
-    const result = await pool.request().query('select * from Intro')
+    let result = await pool.request().query('select * from Intro')
 
     res.render("Mssql", {Intro : result})
 
-    console.log(result)
+    console.log(result.recordset[0].title)
   } catch (err) {
 
     res.status(500)
     res.send(err.message)
   }
 })
-
-let s = {
-    1 : "a",
-    2 : "b",
-    3 : "c",
-    4 : "d"
-}
-
-console.log(1)
