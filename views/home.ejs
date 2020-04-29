@@ -35,26 +35,42 @@
                     socket.emit("Client-send-name", fullName)
                 })
             })
+
+            function enableSend(){
+                document.getElementById("send").disabled = false;
+                document.getElementById("fullName").disabled = true;
+                document.getElementById("setName").disabled = true;
+            }
         </script>
+        <style>
+            .container
+            {
+                display: flex;
+            }
+        </style>
     </head>
     <body>
-        <div id="ds" style="position: absolute; border: 1px solid gray; text-align: center; width: 300px;">
+        <div class="container">
+            <div style="border: 1px solid gray; text-align: center; width: 30%;">
+                <h3>Online User</h3>
+                <div id="ds">
 
-        </div>
-        <div style="border: 1px solid gray; width: 400px;height: auto;margin: auto;">
+                </div>
+            </div>
+        <div style="border: 1px solid gray; width: 35%;height: auto;margin: auto;">
             <div id="Information" style="padding-top: 50px; padding-left: 20%;">
                 Name : <input id="fullName" type="text"/>
-                <button id="setName" type="submit">Send</button>
+                <button id="setName" onclick="enableSend()" type="submit">Send</button>
             </div>
 
-            <div id="sendToServer" style="padding-top: 50px;padding-left: 20%;">
+            <div id="sendToServer" style="padding-top: 30px;padding-left: 20%;padding-bottom: 20px;">
                 Message : <input id="textMess" type="text"/>
-                <button id="send" type="submit">Send</button>
-            </div>
-
-            <div style="border: 1px solid gray; width: 400px;height: auto;margin: auto;text-align: center;">
-                <p id="content"></p>
+                <button id="send" type="submit" disabled>Send</button>
             </div>
         </div>
+        <div style="border: 1px solid gray; width: 550px;height: auto;text-align: center;">
+            <p id="content"></p>
+        </div>
+    </div>
     </body>
 </html>
