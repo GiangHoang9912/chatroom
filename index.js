@@ -51,11 +51,10 @@ app.get("/", function(req, res) {
 
 
 
-var http = require('http');
 var formidable = require('formidable');
 var fs = require('fs');
 
-http.createServer(function(req, res) {
+app.get("/fileupload", function(req, res) {
     if (req.url == '/fileupload') {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
@@ -75,4 +74,4 @@ http.createServer(function(req, res) {
         res.write('</form>');
         return res.end();
     }
-}).listen(process.env.PORT || 3000);
+})
