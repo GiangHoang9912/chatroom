@@ -44,9 +44,9 @@ function PersonUser(fullName, socketID) {
     this.SocketID = socketID
 }
 
-app.get("/", function(req, res) {
-    res.render("home")
-})
+// app.get("/", function(req, res) {
+//     res.render("home")
+// })
 
 
 
@@ -54,7 +54,7 @@ app.get("/", function(req, res) {
 var formidable = require('formidable');
 var fs = require('fs');
 
-app.get("/fileupload", function(req, res) {
+app.get("/upload", function(req, res) {
     if (req.url == '/fileupload') {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
@@ -68,10 +68,7 @@ app.get("/fileupload", function(req, res) {
         });
     } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-        res.write('<input type="file" name="filetoupload"><br>');
-        res.write('<input type="submit">');
-        res.write('</form>');
+        res.write('<form action="http://localhost:3000/" method="post" enctype="multipart/form-data"> <input type="file" name="filetoupload"><br> <input type="submit"> </form>')
         return res.end();
     }
 })

@@ -11,7 +11,7 @@
         })</script> -->
     <script src="https://chatroomoneturn.herokuapp.com/socket.io/socket.io.js"></script>
     <script>
-        let socket = io("https://chatroomoneturn.herokuapp.com")
+        let socket = io("https://localhost:3000/")
 
         socket.on("Server-send-data", function(data) {
             $("#content").append(data + "<br>")
@@ -77,7 +77,7 @@
             <p style="padding-left: 20px;" id="content"></p>
         </div>
     </div>
-    <a href="https://chatroomoneturn.herokuapp.com/fileupload">
+    <a href="https://localhost:3000/fileupload">
         click here
     </a>
 </body>
