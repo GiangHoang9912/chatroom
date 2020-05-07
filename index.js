@@ -1,9 +1,5 @@
 let express = require('express') // khai báo express
 
-let formidable = require('formidable')
-
-let fs = require('fs')
-
 let app = express() //khởi tạo
 app.use(express.static("./public")) // public file ở phía client
 
@@ -51,27 +47,3 @@ function PersonUser(fullName, socketID) {
 app.get("/", function(req, res) {
     res.render("home")
 })
-
-let http = require('http');
-
-http.createServer(function(req, res) {
-    if (req.url == '/fileupload') {
-        let form = new formidable.IncomingForm();
-        form.parse(req, function(err, fields, files) {
-            let oldpath = files.filetoupload.path;
-            let newpath = './public/' + files.filetoupload.name;
-            fs.rename(oldpath, newpath, function(err) {
-                if (err) throw err;
-                res.write('File uploaded and moved!');
-                res.end();
-            });
-        });
-    } else {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-        res.write('<input type="file" name="filetoupload"><br>');
-        res.write('<input type="submit">');
-        res.write('</form>');
-        return res.end();
-    }
-}).listen("https://chatroomoneturn.herokuapp.com/fileupload");
