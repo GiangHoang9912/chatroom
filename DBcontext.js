@@ -12,33 +12,33 @@ app.listen(3000)
 
 const sql = require('mssql')
 const config = {
-    user : "sa",
-    password : "sa",
-    database : "MariaCoffee",
-    server : "localhost",
-    port : 1433
+    user: "sa",
+    password: "sa",
+    database: "MariaCoffee",
+    server: "localhost",
+    port: 1433
 }
 
 const poolPromise = new sql.ConnectionPool(config)
-  .connect()
-  .then(pool => {
-    console.log('Connected to MSSQL')
-    return pool
-  })
-  .catch(err => console.log('Database Connection Failed! Bad Config: ', err))
+    .connect()
+    .then(pool => {
+        console.log('Connected to MSSQL')
+        return pool
+    })
+    .catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
 
-app.get('/', async (req, res) => {
-  try {
-    const pool = await poolPromise
-    let result = await pool.request().query('select * from Intro')
+app.get('/', async(req, res) => {
+    try {
+        const pool = await poolPromise
+        let result = await pool.request().query('select * from Intro')
 
-    res.render("Mssql", {Intro : result})
+        res.render("Mssql", { Intro: result })
 
-    console.log(result.recordset[0].title)
-  } catch (err) {
+        console.log(result.recordset[0].title)
+    } catch (err) {
 
-    res.status(500)
-    res.send(err.message)
-  }
+        res.status(500)
+        res.send(err.message)
+    }
 })

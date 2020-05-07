@@ -11,6 +11,7 @@
   "dependencies": {
     "ejs": "^3.1.2",
     "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "mssql": "^6.2.0",
     "socket.io": "^2.3.0"
   }

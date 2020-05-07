@@ -1,74 +1,75 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>
-            Room Chat
-        </title>
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-        <!-- <script>$(document).ready(function(){
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Room Chat
+    </title>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <!-- <script>$(document).ready(function(){
             alert("Hello Jquery")
         })</script> -->
-        <script src="https://chatroomoneturn.herokuapp.com/socket.io/socket.io.js"></script>
-        <script>
-            let socket = io("https://chatroomoneturn.herokuapp.com")
+    <script src="https://chatroomoneturn.herokuapp.com/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io("https://chatroomoneturn.herokuapp.com")
 
-            socket.on("Server-send-data", function(data){
-                $("#content").append(data + "<br>")
+        socket.on("Server-send-data", function(data) {
+            $("#content").append(data + "<br>")
+        })
+
+        socket.on("Server-send-ds", function(data) {
+            $("#ds").html('')
+            data.map(function(user) {
+                $("#ds").append(`<p>` + user.FullName + `</p>`)
             })
+        })
 
-            socket.on("Server-send-ds", function(data){
-                $("#ds").html('')
-                data.map(function(user){
-                    $("#ds").append(`<p>`+user.FullName+`</p>`)
-                })
+        let text = ""
+
+        $(document).ready(function() {
+            $("#send").click(function() {
+                let message = $("#textMess").val()
+                socket.emit("Client-send-data", message)
+                $("#textMess").val('');
             })
+        })
 
-            let text = ""
-
-            $(document).ready(function(){
-                $("#send").click(function(){
-                    let message = $("#textMess").val()
-                    socket.emit("Client-send-data", message)
-                    $("#textMess").val('');
-                })
+        $(document).ready(function() {
+            $("#setName").click(function() {
+                let fullName = $("#fullName").val()
+                socket.emit("Client-send-name", fullName)
             })
+        })
 
-            $(document).ready(function(){
-                $("#setName").click(function(){
-                    let fullName = $("#fullName").val()
-                    socket.emit("Client-send-name", fullName)
-                })
-            })
+        function enableSend() {
+            document.getElementById("send").disabled = false;
+            document.getElementById("fullName").disabled = true;
+            document.getElementById("setName").disabled = true;
+        }
+    </script>
+    <style>
+        .container {
+            display: flex;
+        }
+    </style>
+</head>
 
-            function enableSend(){
-                document.getElementById("send").disabled = false;
-                document.getElementById("fullName").disabled = true;
-                document.getElementById("setName").disabled = true;
-            }
-        </script>
-        <style>
-            .container
-            {
-                display: flex;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div style="border: 1px solid gray; text-align: center; width: 30%;">
-                <h3>Online User</h3>
-                <div id="ds">
+<body>
+    <div class="container">
+        <div style="border: 1px solid gray; text-align: center; width: 30%;">
+            <h3>Online User</h3>
+            <div id="ds">
 
-                </div>
             </div>
+        </div>
         <div style="border: 1px solid gray; width: 35%;height: auto;margin: auto;">
             <div id="Information" style="padding-top: 50px; padding-left: 20%;">
-                Name : <input id="fullName" type="text" placeholder="Name"/>
+                Name : <input id="fullName" type="text" placeholder="Name" />
                 <button id="setName" onclick="enableSend()" type="submit">Send</button>
             </div>
 
             <div id="sendToServer" style="padding-top: 30px;padding-left: 20%;padding-bottom: 20px;">
-                Message : <input id="textMess" onkeypress="" type="text" placeholder="Message"/>
+                Message : <input id="textMess" onkeypress="" type="text" placeholder="Message" />
                 <button id="send" type="submit" disabled>Send</button>
             </div>
         </div>
@@ -76,5 +77,6 @@
             <p style="padding-left: 20px;" id="content"></p>
         </div>
     </div>
-    </body>
+</body>
+
 </html>
